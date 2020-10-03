@@ -7,7 +7,6 @@ from reportlab.graphics import renderPDF, renderPM
 from PIL import Image, ImageTk
 from tkinter.filedialog import asksaveasfilename
 from datetime import date
-from IPython.display import SVG
 
 class Chess_Game():
     def __init__(self, root):
@@ -199,9 +198,9 @@ class Chess_Game():
             self.pgn_moves.headers["Black"] = self.black
             self.pgn_moves.headers["TimeControl"] = self.time
             self.pgn_moves.headers["Round"] = self.round
-            temrination_text = ""
             self.pgn_moves.headers["Termination"] = self.termination_message()
             self.pgn_moves.headers["Date"] = today
+            del self.pgn_moves.headers["Site"]
             with open(filepath, "w") as output_file:
                 exporter = chess.pgn.FileExporter(output_file)
                 self.pgn_moves.accept(exporter)
