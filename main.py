@@ -58,7 +58,7 @@ class Chess_Game():
 
         #Bind keys
         self.user_move.bind("<Return>", self.player_move)
-        self.user_move.bind("<Control_L>", self.undo)
+        self.user_move.bind("<Control_L>", self.restart)
         self.user_move.focus_set()
 
     def start_screen(self):
@@ -132,7 +132,8 @@ class Chess_Game():
     def exit(self, event):
         self.root.destroy()
 
-    def undo(self, event):
+    def restart(self, event):
+        self.user_move.grid(row = 1, column=1, pady=10, padx=60)
         self.user_move.delete(0, "end")
         self.board.reset()
         self.update_canvas()
@@ -145,13 +146,13 @@ class Chess_Game():
             self.board.push_san(move)
             self.update_canvas()
         except:
-            self.text.set("Please input a valid move!")
+            self.text.set("Please input a valid move!\nClick on Control to restart the game!\nClick on Escape to close the Game!")
         if self.game_ended() == 1:
             self.user_move.grid_forget()
             if self.board.turn:
-                self.text.set("The winner is Black")
+                self.text.set("The winner is Black\nClick on Control to restart the game!\nClick on Escape to close the Game!")
             else:
-                self.text.set("The winner is White")
+                self.text.set("The winner is White\nClick on Control to restart the game!\nClick on Escape to close the Game!")
         elif self.game_ended() > 1:
             self.user_move.grid_forget()
             self.text.set("It's a draw!!!")
